@@ -1,23 +1,24 @@
-import { CreateContext, useState, useEffect, createContext } from 'react'
+import { createContext, useState, useEffect } from "react";
 
-
+// Crear el contexto
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState(() => {
+    // Cargar usuarios desde LocalStorage al iniciar (evita que se borren al recargar)
+    const storedUsers = localStorage.getItem("users");
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  });
 
-  useEffect(()=> {
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || []
-    setUsers(storedUsers)
-  }, [])
-
+  // Guardar en LocalStorage cada vez que `users` cambie
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users))
-  }, [users])
+    console.log("Guardando en LocalStorage:", users);
+    localStorage.setItem("users", JSON.stringify(users));
+  }, [users]);
 
   return (
     <UserContext.Provider value={{ users, setUsers }}>
       {children}
     </UserContext.Provider>
-  )
+  );
 }

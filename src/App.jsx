@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar"
 import Home from "./pages/Home"
 import Users from "./pages/Users"
 import UserDetails from "./pages/UserDetails"
-import NotFound from "./pages/NotFound"
+// import NotFound from "./pages/NotFound"
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Route path="/" element={<Home />}/>
           <Route path="/users" element={<Users />}/>
           <Route path="/users/:id" element={<UserDetails />}/>
-          <Route path="*" element={<NotFound />}/>
+          {/* <Route path="*" element={<NotFound />}/> */}
         </Routes>
       </div>
     </Router>
